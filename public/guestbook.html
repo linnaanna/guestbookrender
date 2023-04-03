@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Guestbook</title>
+</head>
+<body>
+    <h1>Guestbook</h1>
+
+
+    <div class="col-sm-6">
+    <table class="table" id="table"></table>
+</div>
+<div class="col-sm-6 text-center" >
+    <br><br><br>
+    <a href="http://localhost:8081/"><button class="btn btn-primary btn-lg">Home</button>
+    </a><br><br>
+    <a href="http://localhost:8081/newmessage"><button class="btn btn-primary btn-lg">New message</button>
+    </a><br><br>
+    <a href="http://localhost:8081/ajaxmessage"><button class="btn btn-primary btn-lg">Ajax message</button>
+    </a>
+</div>
+    
+
+      
+<script type="text/javascript">
+//fetch json file
+fetch('guestdata.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                appendData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+        function appendData(data) {
+            //create table
+            let table =
+    "<tr><th>" +
+    "Name" +
+    "</th><th>" +
+    "Country" +
+    "</th><th>" +
+    "Date" +
+    "</th><th>" +
+    "Message" +
+    "</th></tr>" +
+    "<tr>" +
+    "<td>";
+//cycle through data
+  for (var i = 0; i < data.length; i++) {
+    table +=
+      "<tr>" +
+      "<td>" +
+      data[i].username +
+      "</td>" +
+      "<td>" +
+      data[i].country +
+      "</td>" +
+      "<td>" +
+      data[i].date +
+      "</td>" +
+      "<td>" +
+      data[i].message +
+      "</td>" +
+      "</tr>";
+  }
+  //add table to HTML
+          document.getElementById('table').innerHTML = table;  
+        }
+
+    </script>
+
+
+</body>
+</html>
